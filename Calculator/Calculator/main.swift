@@ -16,64 +16,81 @@ print("Welcome to Command Line Calculator")
 
 //var userEntered = readLine()
 
-    func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
+func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
     switch opString {
     case "+": // A
-      return {x, y in x + y } // B
+        return {x, y in x + y } // B
     case "-":
-      return {x, y in x - y }
+        return {x, y in x - y }
     case "*":
-      return {x, y in x * y }
+        return {x, y in x * y }
     case "/":
-      return {x, y in x / y }
+        return {x, y in x / y }
     case "?":
         return {x, y in x * y}
         print("Guess which operation was used?")
-        var guessResponse = String(readLine()!)
-        if guessResponse == "*" {
-        print("Correct!")
-        } else {
-        print("Wrong!")
-        }
-        //break?
+        //var guessResponse = String(readLine()!)
+//        if guessResponse == "*" {
+//            print("Correct!")
+//        } else {
+//            print("Wrong!")
+//        }
+    //break?
     default:
-      return {x, y in x + y }
+        return {x, y in x + y }
     }
-       
+    
 }
 
 
 //let mathFunction = mathStuffFactory(opString: array[])
 
- 
+
 let userInput = readLine() ?? "5 + 5"
-        
-print(Array(userInput))
+
 //print(userInput.components(separatedBy: " "))
-        
+
 func takeInInput(input:String) -> Double {
-let userInputAsArray = input.components(separatedBy: " ")
-
-let mathFunction = mathStuffFactory(opString: userInputAsArray[1]) // A
-
-let num1 = Double(userInputAsArray[0]) ?? 0.0
-let num2 = Double(userInputAsArray[2]) ?? 0.0
-    
-let calcu = mathFunction(num1,num2) // B
-
-//print("your calculation is \(calcu)")
-return calcu
-
-}
+    let userInputAsArray = input.components(separatedBy: " ")
+    var calcu = 0.0
+    if userInputAsArray.count == 3 {
+        let mathFunction = mathStuffFactory(opString: userInputAsArray[1]) // A
         
+        let num1 = Double(userInputAsArray[0]) ?? 0.0
+        let num2 = Double(userInputAsArray[2]) ?? 0.0
+        calcu = mathFunction(num1,num2) // B
+    }
+    //print("your calculation is \(calcu)")
+    return calcu
+    
+}
+let result = takeInInput(input: userInput)
+print(result)
 
+//Part 2a: Implement your own filter function
+//Your filter will need to support:
+//
+//Numbers less than a given number
+//Numbers greater than a given number
+//You only need to filter Ints You will write your own filter method (not using the built in one). Use this as a starting point.
+//
+//func myFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
+//
+//}
+//Example:
+//
+//filter 1,5,2,7,3,4 by < 4
+//
+//1,2,3
 
 
 func myLessThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
     let filteredArr = inputArray.filter { $0 < 5 }
     return filteredArr
 }
-        
+
+//print(myLessThanFilter(arr:))
+
 
 func myGreaterThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
     let filteredArr = inputArray.filter { $0 > 5 }
@@ -91,11 +108,16 @@ func myGreaterThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
 //
 //3,15,6,21,9,12
 
-func myMultiplicationMap(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
-    let filteredArr = inputArray.map { $0 * $0 }
-    return filteredArr
-}
+//func myMultiplicationMap(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
+//    let mapArr = inputArray.map { $0 * $1 }
+//    return mapArr
+//}
 
+
+//func myDivisionMap(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
+//    let mapArr = inputArray.map { $0 / $1 }
+//    return mapArr
+//}
 
 
 
@@ -109,18 +131,18 @@ func myMultiplicationMap(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
 //26
 
 
+//func myReduceFunction(inputArray: [Int]) -> Int {
+//    let reducedResult = inputArray.reduce { $0 * $1 }
+//}
 
 
 
 
 
 
+//repeat while - outside of the function!
 
-//repeat while outside of the function!
-        
-//
-//
-        
+
 //let calcu = mathFunction(10,5)
 //print("your calculation is \(calcu)")
 //
