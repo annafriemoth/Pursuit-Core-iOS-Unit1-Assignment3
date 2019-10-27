@@ -7,7 +7,7 @@
 //
 import Foundation
 
-print("Welcome to Command Line Calculator")
+print("Welcome to Command Line Calculator. What would you like to calculate?")
 
 //var isCalculating = Bool()
 
@@ -15,6 +15,7 @@ print("Welcome to Command Line Calculator")
 //let result = closureOperation(45, 5)
 
 //var userEntered = readLine()
+var theOperatorFromFunction = ""
 
 func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
     switch opString {
@@ -27,15 +28,24 @@ func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
     case "/":
         return {x, y in x / y }
     case "?":
-        return {x, y in x * y}
-        print("Guess which operation was used?")
-        //var guessResponse = String(readLine()!)
-//        if guessResponse == "*" {
-//            print("Correct!")
-//        } else {
-//            print("Wrong!")
-//        }
-    //break?
+        let operators = ["*", "-", "+", "/"]
+        let theOperator = operators.randomElement() ?? "+"
+        
+        theOperatorFromFunction += theOperator
+        print(theOperator)
+        if theOperator == "/"{
+            return {x, y in x / y }
+        } else if theOperator == "*" {
+            return {x, y in x * y }
+        } else if theOperator == "-" {
+            return {x, y in x - y }
+        } else if theOperator == "+" {
+            return {x, y in x + y }
+        } else {
+            return {x, y in x + y }
+        }
+        
+    
     default:
         return {x, y in x + y }
     }
@@ -43,7 +53,6 @@ func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
 }
 
 
-//let mathFunction = mathStuffFactory(opString: array[])
 
 
 let userInput = readLine() ?? "5 + 5"
@@ -51,21 +60,50 @@ let userInput = readLine() ?? "5 + 5"
 //print(userInput.components(separatedBy: " "))
 
 func takeInInput(input:String) -> Double {
-    let userInputAsArray = input.components(separatedBy: " ")
+    let userInputAsArray = input.components(separatedBy: " ") //["5","+","5"]
     var calcu = 0.0
     if userInputAsArray.count == 3 {
-        let mathFunction = mathStuffFactory(opString: userInputAsArray[1]) // A
+        let mathFunction = mathStuffFactory(opString: userInputAsArray[1]) // A + - * /
         
         let num1 = Double(userInputAsArray[0]) ?? 0.0
         let num2 = Double(userInputAsArray[2]) ?? 0.0
         calcu = mathFunction(num1,num2) // B
     }
-    //print("your calculation is \(calcu)")
+
     return calcu
-    
 }
+
+
+
+
+
+
+
+
 let result = takeInInput(input: userInput)
 print(result)
+
+
+
+print("used \(theOperatorFromFunction)")
+
+if theOperatorFromFunction == "" {
+    print("we never used box so no ?")
+    
+    
+} else {
+    
+    print("box is updated and they used a ?")
+            print("Guess which operation was used?")
+            var guessResponse = String(readLine()!)
+            if guessResponse == theOperatorFromFunction {
+                print("Correct!")
+                } else {
+                print("Wrong!")
+                }
+    
+}
+
 
 //Part 2a: Implement your own filter function
 //Your filter will need to support:
@@ -83,19 +121,42 @@ print(result)
 //
 //1,2,3
 
+//var thing = [1,2,3,4,5].filter
+func myCustomFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int]  {
+        var finalArray = [Int]()
+        for number in inputArray {
+            if filter(number) < inputArray {
+                finalArray.append(number)
+            }
+        }
+        return finalArray
+    }
+    // Create empty array var numereey = [Double]()
+     // use .components
+    
+    // then a for loop into that array that i just created
+    // add all numbers into another array that's empty
+    
+    //.append
+    
 
-func myLessThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
-    let filteredArr = inputArray.filter { $0 < 5 }
-    return filteredArr
-}
 
 //print(myLessThanFilter(arr:))
 
 
-func myGreaterThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
-    let filteredArr = inputArray.filter { $0 > 5 }
-    return filteredArr
+//func myGreaterThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
+//    let userInputAsArray = input.components(separatedBy: " ")
+//    return
+//}
+
+func mySecondCustomFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int]  {
+var finalArray = [Int]()
+for number in inputArray {
+    if filter(number) > inputArray {
+        finalArray.append(number)
+    }
 }
+return finalArray
 
 //Part 2b: Implement your own map function
 //Your map will need to support:
@@ -135,14 +196,15 @@ func myGreaterThanFilter(inputArray: [Int], filter: (Int) -> Bool) -> [Int] {
 //    let reducedResult = inputArray.reduce { $0 * $1 }
 //}
 
-
-
-
-
-
 //repeat while - outside of the function!
-
 
 //let calcu = mathFunction(10,5)
 //print("your calculation is \(calcu)")
-//
+
+
+
+
+
+
+
+
